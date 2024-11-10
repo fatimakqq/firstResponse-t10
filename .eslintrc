@@ -1,0 +1,10 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "@next/next/no-img-element": "off", // Disable the <img> tag warning
+    "react/no-unescaped-entities": "off", // Disable unescaped character warning
+    "react/jsx-no-undef": "off", // Disable undefined JSX errors
+    "react/no-unknown-property": "off", // Ignore 'class' vs 'className' issue
+    // Add other rules you want to disable
+  }
+}

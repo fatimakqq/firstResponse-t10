@@ -1,0 +1,21 @@
+{
+	"appId": "com.example.t10firstresponse",
+	"appName": "T10-FirstResponse",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "out",
+	"plugins": {
+		"GoogleAuth": {
+			"scopes": [
+				"profile",
+				"email"
+			],
+			"serverClientId": "85746195131-6aui6rsu5kqh1gq3e91qk035momip3qd.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
+		},
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {}
+}

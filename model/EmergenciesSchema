@@ -1,0 +1,15 @@
+import { Schema, model, models } from 'mongoose';
+
+const emergencySchema = new Schema({
+    isActive : String,
+    date: String,
+    location : String,
+    title : String,
+    time : String,
+    timeEnd : String,
+    timeOfCall : String,
+})
+
+const Emergencies = models.emergency || model('emergency', emergencySchema);
+
+export default Emergencies;
