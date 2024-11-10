@@ -35,6 +35,6 @@ open App.xcworkspace
 
 
 
-### This will open the app in Xcode, allowing you to connect your device and run the app. Or, just select a simulator device from Xcode's options.
+### This will open the app in Xcode, allowing you to connect your device and run the app. Or, just select a simulator device from Xcode's options. The layout works best with iPhone 12 but is responsive to others.
 
 
