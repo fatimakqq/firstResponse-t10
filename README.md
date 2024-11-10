@@ -15,9 +15,20 @@ npm run dev
 
 To run on your iOS mobile device or mobile emulator, open a second terminal:
 npx cap sync
+
+
 cd ios/App
+
+
+
 pod install
+
+
+
 open App.xcworkspace
+
+
+
 
 This will open Xcode, allowing you to connect your device and run the app. Or, just select a simulator device from Xcode's options.
 
