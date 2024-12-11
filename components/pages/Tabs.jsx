@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { analyticsOutline, calculatorOutline, calendarOutline, helpCircle, heartHalf, checkboxOutline } from 'ionicons/icons';
+import { analyticsOutline, calculatorOutline, timeOutline, helpCircle, heartHalf, checkboxOutline } from 'ionicons/icons';
 
 
 import Home from './Emergencies';
@@ -52,8 +52,8 @@ const Tabs = () => {
           <IonLabel>Emergency Logs</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab5" href="/tabs/calendar">
-          <IonIcon icon={calendarOutline} />
-          <IonLabel>Calendar</IonLabel>
+          <IonIcon icon={timeOutline} />
+          <IonLabel>My Shifts</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab6" href="/tabs/help">
           <IonIcon icon={helpCircle} />

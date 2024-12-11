@@ -58,7 +58,7 @@ const Calendar = () => {
       <IonHeader>
         <IonToolbar className="bg-gray-100 border-b border-green-800">
           <div className="flex items-center px-4">
-            <IonTitle className="text-blue-900">Calendar</IonTitle>
+            <IonTitle className="text-blue-900">My Shifts</IonTitle>
           </div>
           <IonButtons slot="start">
             <IonMenuButton className="text-blue-900" />
