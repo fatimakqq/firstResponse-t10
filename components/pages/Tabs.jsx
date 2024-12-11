@@ -15,6 +15,7 @@ import Account from './Account';
 import Assets from './Assets';
 import Tasks from './Tasks';
 import IndividualShift from './IndividualShift';
+import IndividualLog from './IndividualLog';
 
 const Tabs = () => {
   return (
@@ -34,6 +35,9 @@ const Tabs = () => {
         </Route>
         <Route exact path="/tabs/emergencies">
           <Home />
+        </Route>
+        <Route path="/tabs/emergencies/log/:id">
+          <IndividualLog />
         </Route>
         <Route exact path="/tabs/calendar">
           <Calendar />
