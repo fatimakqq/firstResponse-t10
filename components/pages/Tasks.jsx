@@ -64,26 +64,26 @@ const Tasks = () => {
     prepare: [
       {
         id: 1,
-        text: "View logs for the seizure emergency",
+        text: "For the current Concussion emergency, review the patient's basic information, including weight.",
         completed: false
       }
     ],
     respond: [
       {
         id: 2,
-        text: "Calculate acetaminophen dosage based on weight before administering",
+        text: "Calculate how much liquid acetaminophen to administer the Concussion patient",
         completed: false
       }
     ],
     revise: [
       {
         id: 3,
-        text: "Review stats",
+        text: "Review your personal response times and stats for this month",
         completed: false
       },
       {
         id: 4,
-        text: "Review upcoming shift for tomorrow",
+        text: "Review your upcoming shifts",
         completed: false
       }
     ]
@@ -118,7 +118,7 @@ const Tasks = () => {
         isOpen={showCompletionAlert}
         onDidDismiss={() => setShowCompletionAlert(false)}
         header="All Tasks Complete!"
-        message="You have successfully completed all your tasks for today."
+        message="You have successfully completed all your tasks for today. Great work!"
         buttons={['OK']}
         cssClass="font-manjari"
       />
