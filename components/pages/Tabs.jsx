@@ -3,7 +3,6 @@ import { IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } 
 import { IonReactRouter } from '@ionic/react-router';
 import { analyticsOutline, calculatorOutline, timeOutline, helpCircle, heartHalf, checkboxOutline } from 'ionicons/icons';
 
-
 import Home from './Emergencies';
 import Lists from './Lists';
 import Reports from './Reports'
@@ -15,23 +14,48 @@ import Settings from './Settings';
 import Account from './Account';
 import Assets from './Assets';
 import Tasks from './Tasks';
+import IndividualShift from './IndividualShift';
 
 const Tabs = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Route path="/tabs/converter" render={() => <Converter />} exact={true} />
-        <Route path="/tabs/reports" render={() => <Reports />} exact={true} />
-        <Route path="/tabs/lists/:listId" render={() => <ListDetail />} exact={true} />
-        <Route path="/tabs/tasks" render={() => <Tasks />} exact={true} />
-        <Route path="/tabs/emergencies" render={() => <Home />} exact={true} />
-        <Route path="/tabs/calendar" render={() => <Calendar />} exact={true} />
-        <Route path="/tabs/help" render={() => <Assets />} exact={true} />
-        <Route path="/tabs/settings" render={() => <Settings />} exact={true} />
-        <Route path="/tabs/account" render={() => <Account />} exact={true} />
-        <Route path="/tabs" render={() => <Redirect to="/tabs/login" />} exact={true} />
-        <Route path="/tabs/login" render={() => <Login />} exact={true} />
-
+        <Route exact path="/tabs/converter">
+          <Converter />
+        </Route>
+        <Route exact path="/tabs/reports">
+          <Reports />
+        </Route>
+        <Route exact path="/tabs/lists/:listId">
+          <ListDetail />
+        </Route>
+        <Route exact path="/tabs/tasks">
+          <Tasks />
+        </Route>
+        <Route exact path="/tabs/emergencies">
+          <Home />
+        </Route>
+        <Route exact path="/tabs/calendar">
+          <Calendar />
+        </Route>
+        <Route path="/tabs/calendar/shift/:id">
+          <IndividualShift />
+        </Route>
+        <Route exact path="/tabs/help">
+          <Assets />
+        </Route>
+        <Route exact path="/tabs/settings">
+          <Settings />
+        </Route>
+        <Route exact path="/tabs/account">
+          <Account />
+        </Route>
+        <Route exact path="/tabs">
+          <Redirect to="/tabs/login" />
+        </Route>
+        <Route exact path="/tabs/login">
+          <Login />
+        </Route>
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom">

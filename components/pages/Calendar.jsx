@@ -24,7 +24,7 @@ import { heartHalf, cog } from 'ionicons/icons';
 const CustomButton = ({ timeStart, timeEnd, date, shiftID }) => {
   return (
     <div className="w-400 mx-30 h-84">
-      <IonItem routerLink={`/shift/${shiftID}`} routerDirection="forward"> 
+<IonItem routerLink={`/tabs/calendar/shift/${shiftID}`} routerDirection="forward">
         <motion.button
           whileHover={{ scale: 1.05, backgroundColor: "blue", borderRadius: "30px"}}
           whileTap={{ scale: 0.95 }}

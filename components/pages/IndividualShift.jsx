@@ -12,17 +12,10 @@ import {
   IonContent,
   IonMenuButton,
   IonLabel,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonModal,
-  IonItem,
-  IonList,
   IonBackButton,
   IonRouterOutlet
 } from '@ionic/react';
-import { chevronBackOutline, peopleOutline, timeOutline, calendarOutline } from 'ionicons/icons';
+import { chevronBackOutline, peopleOutline, timeOutline, calendarOutline, cog } from 'ionicons/icons';
 
 const IndividualShift = ({ match }) => {
   const history = useHistory();
@@ -31,6 +24,9 @@ const IndividualShift = ({ match }) => {
     <IonPage>
       <IonHeader>
         <IonToolbar className="bg-gray-100 border-b border-green-800">
+          <div className="flex items-center px-4">
+            <IonTitle className="text-blue-900 font-bold">Shift Details</IonTitle>
+          </div>
           <IonButtons slot="start">
             <IonBackButton 
               className="text-blue-900" 
@@ -39,7 +35,12 @@ const IndividualShift = ({ match }) => {
               text="Back"
             />
           </IonButtons>
-          <IonTitle className="text-blue-900 font-bold">Shift Details</IonTitle>
+          <IonButtons slot="end">
+            <IonMenuButton className="text-blue-900" />
+            <IonButton routerLink="/tabs/settings" className="text-blue-900">
+              <IonIcon icon={cog} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
@@ -98,10 +99,6 @@ const IndividualShift = ({ match }) => {
           </div>
         </div>
       </IonContent>
-
-      <IonRouterOutlet>
-        <Route path="/tabs/settings" render={() => <Settings />} exact={true} />
-      </IonRouterOutlet>
     </IonPage>
   );
 };
