@@ -249,6 +249,10 @@ const IndividualLog = (props) => {
                 <p className="text-gray-600 text-sm">Age</p>
                 <p className="text-gray-800">20</p>
               </div>
+              <div className="p-4">
+                <p className="text-gray-600 text-sm">Weight (lbs)</p>
+                <p className="text-gray-800">135</p>
+              </div>
             </div>
           </div>
 

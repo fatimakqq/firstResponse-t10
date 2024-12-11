@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonPage,
   IonHeader,
@@ -10,7 +10,36 @@ import {
   IonContent,
   IonMenuButton,
 } from '@ionic/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { notificationsOutline, heartHalf, mailOutline, lockClosedOutline } from 'ionicons/icons';
+
+const SplashScreen = () => (
+  <motion.div 
+    className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100"
+    initial={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <motion.div 
+      className="flex flex-col items-center"
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.2, duration: 0.5 }}
+    >
+      <div className="w-32 h-32 mb-6 bg-gradient-to-br from-green-800 to-blue-900 rounded-3xl flex items-center justify-center">
+        <IonIcon icon={heartHalf} className="h-16 w-16 text-white"/>
+      </div>
+      <motion.h1 
+        className="text-4xl font-bold text-blue-900"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
+        FirstResponse
+      </motion.h1>
+    </motion.div>
+  </motion.div>
+);
 
 const LoginCard = () => {
   const [email, setEmail] = useState('');
@@ -31,13 +60,12 @@ const LoginCard = () => {
     }
   };
 
-
   return (
     <div className="w-full max-w-md mx-auto flex flex-col items-center px-4 bg-gray-100">
       {/* Logo and Title Section */}
       <div className="mb-10 text-center mt-10">
         <div className="w-20 h-20 mb-4 mx-auto bg-gradient-to-br from-green-800 to-blue-900 rounded-2xl flex items-center justify-center">
-        <IonIcon icon={heartHalf} className="h-10 w-10 text-white"/>
+          <IonIcon icon={heartHalf} className="h-10 w-10 text-white"/>
         </div>
         <h1 className="text-3xl font-bold text-blue-900 mb-2">FirstResponse</h1>
         <p className="text-green-800">Welcome back</p>
@@ -109,7 +137,6 @@ const LoginCard = () => {
             Sign In
           </button>
         </form>
-
       </div>
     </div>
   );
@@ -117,9 +144,23 @@ const LoginCard = () => {
 
 const Login = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    // Show splash screen for 2 seconds
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <IonPage>
+      <AnimatePresence>
+        {showSplash && <SplashScreen />}
+      </AnimatePresence>
+
       <IonHeader>
         <IonToolbar className="bg-grey-100 border-b border-green-800">
           <IonButtons slot="start">
@@ -141,9 +182,14 @@ const Login = () => {
           </div>
         )}
 
-        <div className="min-h-screen py-12">
+        <motion.div 
+          className="min-h-screen py-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.2, duration: 0.5 }}
+        >
           <LoginCard />
-        </div>
+        </motion.div>
       </IonContent>
     </IonPage>
   );
