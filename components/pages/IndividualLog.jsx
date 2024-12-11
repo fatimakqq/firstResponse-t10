@@ -258,32 +258,7 @@ const IndividualLog = (props) => {
 
 
 
-          {/* Enhanced Chatbot Section */}
-          <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-green-800 border-opacity-20">
-            <div className="p-1 pl-3 bg-gradient-to-r from-green-800 to-blue-900 text-white flex items-center">
-              <IonIcon icon={helpCircleOutline} className="h-6 w-6 mr-2"/>
-              <h2 className="text-xl font-bold">Treatment Chatbot</h2>
-            </div>
-            <div className="p-4 space-y-3">
-              <p className="text-gray-600">
-                Need guidance on treating head injuries? Our AI assistant can help with:
-              </p>
-              <ul className="list-disc list-inside text-gray-800 ml-2">
-                <li>Treatment protocols</li>
-                <li>Best practices</li>
-                <li>Safety guidelines</li>
-              </ul>
-              <IonItem 
-                button 
-                detail={true} 
-                lines="none" 
-                className="mt-2 --ion-item-background: transparent;"
-              >
-                <IonIcon icon={chatbubbleEllipsesOutline} slot="start" className="text-green-800" />
-                <IonLabel className="text-blue-900 font-semibold">Open Chatbot</IonLabel>
-              </IonItem>
-            </div>
-          </div>
+ 
         </div>
       </IonContent>
 
