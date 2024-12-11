@@ -1,20 +1,9 @@
-'use client';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { staggerContainer } from '../../utils/motion';
-import "tailwindcss/tailwind.css";
-import Card from '../ui/Card';
-import { getSession } from 'next-auth/react'
-import { useSession } from "next-auth/react"
-import { useNavigate } from "react-router-dom";
-import Notifications from './Notifications';
-import { useState, useEffect } from 'react';
-import { notificationsOutline, cog, heartHalf } from 'ionicons/icons';
-import { getEmLogInfo, getHomeItems } from '../../store/selectors';
+import { cog, filterOutline, arrowDownOutline } from 'ionicons/icons';
 import Store from '../../store';
-import { Redirect, Route } from 'react-router-dom';
-import { IonReactRouter } from '@ionic/react-router';
-import React from 'react';
-import IndividualLog from './IndividualLog';
+import { getEmLogInfo } from '../../store/selectors';
 import {
   IonPage,
   IonHeader,
@@ -25,17 +14,29 @@ import {
   IonIcon,
   IonContent,
   IonMenuButton,
-  IonLabel,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonModal,
   IonItem,
-  IonRouterOutlet,
+  IonSelect,
+  IonSelectOption,
+  IonLabel,
 } from '@ionic/react';
-import Settings from './Settings';
-import Tabs from './Tabs'
+
+const emergencyTypes = [
+  "All",
+  "Concussion",
+  "Seizure",
+  "Fainting",
+  "Migraine",
+  "Fever",
+  "Allergic Reaction",
+  "Asthma Attack"
+];
+
+const sortOptions = [
+  { label: "Newest First", value: "newest" },
+  { label: "Oldest First", value: "oldest" },
+  { label: "Location A-Z", value: "location" },
+  { label: "Emergency Type A-Z", value: "type" }
+];
 
 const CustomButton = ({ title, timeStart, timeEnd, location, date, logId }) => {
   return (
@@ -66,39 +67,38 @@ const CustomButton = ({ title, timeStart, timeEnd, location, date, logId }) => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req })
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/tabs/login',
-        permanent: false
-      }
-    }
-  }
-  return {
-    props: { session }
-  }
-}
-
 const Emergencies = () => {
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [emergencies, setEmergencies] = useState([]);
+  const [selectedType, setSelectedType] = useState("All");
+  const [sortBy, setSortBy] = useState("newest");
+  const [filteredLogs, setFilteredLogs] = useState([]);
   const emLogInfo = Store.useState(getEmLogInfo);
 
   useEffect(() => {
-    const fetchEmergencies = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/api/emergency");
-        const data = await response.json();
-        setEmergencies(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchEmergencies();
-  }, []);
+    let filtered = [...emLogInfo];
+    
+    if (selectedType !== "All") {
+      filtered = filtered.filter(log => log.title === selectedType);
+    }
+    
+    switch (sortBy) {
+      case "newest":
+        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        break;
+      case "oldest":
+        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+        break;
+      case "location":
+        filtered.sort((a, b) => a.location.localeCompare(b.location));
+        break;
+      case "type":
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      default:
+        break;
+    }
+    
+    setFilteredLogs(filtered);
+  }, [selectedType, sortBy, emLogInfo]);
 
   return (
     <IonPage>
@@ -116,16 +116,65 @@ const Emergencies = () => {
             </IonButton>
           </IonButtons>
         </IonToolbar>
+        
+        <IonToolbar className="bg-gray-50">
+          <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex-1 mr-2">
+              <IonItem lines="none" className="rounded-xl bg-white shadow-sm" style={{
+                '--background': 'white'
+              }}>
+                <IonIcon icon={filterOutline} slot="start" style={{ color: 'rgb(22, 101, 52)' }} />
+                <IonLabel className="font-manjari text-xl" style={{ color: 'rgb(30, 58, 138)' }}>Type</IonLabel>
+                <IonSelect 
+                  value={selectedType} 
+                  onIonChange={e => setSelectedType(e.detail.value)}
+                  interface="action-sheet"
+                  interfaceOptions={{
+                    header: 'Filter by Emergency Type'
+                  }}
+                  className="font-manjari text-xl"
+                  style={{ color: 'rgb(30, 58, 138)' }}
+                >
+                  {emergencyTypes.map(type => (
+                    <IonSelectOption key={type} value={type}>
+                      {type}
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+                <IonIcon icon={arrowDownOutline} slot="end" style={{ color: 'rgb(22, 101, 52)' }} />
+              </IonItem>
+            </div>
+            
+            <div className="flex-1 ml-2">
+              <IonItem lines="none" className="rounded-xl bg-white shadow-sm" style={{
+                '--background': 'white'
+              }}>
+                <IonIcon icon={filterOutline} slot="start" style={{ color: 'rgb(22, 101, 52)' }} />
+                <IonLabel className="font-manjari text-xl" style={{ color: 'rgb(30, 58, 138)' }}>Sort</IonLabel>
+                <IonSelect 
+                  value={sortBy} 
+                  onIonChange={e => setSortBy(e.detail.value)}
+                  interface="action-sheet"
+                  interfaceOptions={{
+                    header: 'Sort Emergencies'
+                  }}
+                  className="font-manjari text-xl"
+                  style={{ color: 'rgb(30, 58, 138)' }}
+                >
+                  {sortOptions.map(option => (
+                    <IonSelectOption key={option.value} value={option.value}>
+                      {option.label}
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+                <IonIcon icon={arrowDownOutline} slot="end" style={{ color: 'rgb(22, 101, 52)' }} />
+              </IonItem>
+            </div>
+          </div>
+        </IonToolbar>
       </IonHeader>
       
-      <IonContent className="ion-padding" fullscreen>
-        <Notifications open={showNotifications} onDidDismiss={() => setShowNotifications(false)} />
-
-        <div id="animation-circle" className="relative">
-          <div className="absolute z-50 right-0 -mt-2 ml-8 w-8 h-8 rounded-full bg-red-700 animate-ping"></div>
-          <div className="absolute z-50 right-0 -mt-2 ml-8 w-8 h-8 rounded-full bg-red-700"></div>
-        </div>
-
+      <IonContent className="ion-padding">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -133,30 +182,16 @@ const Emergencies = () => {
           viewport={{ once: 'false', amount: 0.25 }}
         >
           <div className='grid grid-cols-1 gap-6'>
-            {emLogInfo.map((log, index) => (
-              log.logId == 4 ? (
-                <React.Fragment key={index}>
-                  <CustomButton
-                    logId={log.logId}
-                    title={log.title}
-                    time={log.time}
-                    location={log.location}
-                    date={log.date}
-                    timeStart={log.timeStart}
-                    timeEnd={log.timeEnd}
-                  />
-                </React.Fragment>
-              ) : (
-                <CustomButton
-                  logId={log.logId}
-                  title={log.title}
-                  time={log.time}
-                  location={log.location}
-                  date={log.date}
-                  timeStart={log.timeStart}
-                  timeEnd={log.timeEnd}
-                />
-              )
+            {filteredLogs.map((log, index) => (
+              <CustomButton
+                key={log.logId}
+                logId={log.logId}
+                title={log.title}
+                timeStart={log.timeStart}
+                timeEnd={log.timeEnd}
+                location={log.location}
+                date={log.date}
+              />
             ))}
           </div>
         </motion.div>
