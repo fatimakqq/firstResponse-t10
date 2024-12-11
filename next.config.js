@@ -9,7 +9,9 @@ const whitelist = [
   'http://localhost:3000',
 ];
 
-module.exports = withTM({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',  // Add this for static export
   basePath: '',
   images: {
     unoptimized: true,
@@ -18,10 +20,10 @@ module.exports = withTM({
     path: '!',
   },
   swcMinify: true,
-  distDir: 'out', // Set the output directory for the static export
   env: {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
+  // Remove distDir: 'out' as it's handled by output: 'export'
   async headers() {
     return [
       {
@@ -44,4 +46,6 @@ module.exports = withTM({
       },
     ];
   },
-});
+};
+
+module.exports = withTM(nextConfig);
