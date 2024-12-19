@@ -11,7 +11,7 @@ Rudra Amin
 
 ## Run FirstResponse
 
-### In a terminal, run:
+### To quickly run as a website, run the following commands in a terminal:
 
 npm install (for first time)
 
@@ -21,16 +21,19 @@ This will be sufficient if you just want to view the app as a web app in your br
 
 ### To run on your iOS mobile device or mobile emulator, open a second terminal:
 
-npx cap sync
+npm run build
+
+npx cap sync ios
+
+npx cap copy ios
 
 cd ios/App
 
 pod install (for first time)
 
-open App.xcworkspace
+open App.xcworkspace or npx cap open ios
 
 This will open the app in Xcode, allowing you to connect your device and run the app on iOS. 
-Keep in mind iOS devices require connection to XCode on a Mac to run. Please ensure you have these tools installed and ready. 
 
 ### Running an app on a phone or emulator:
 At this stage, the project will automatically open on Xcode. Select a device from the top left menu. We recommend iPhone 12 emulator, but any emulator should do.
@@ -43,3 +46,6 @@ Watch our Youtube Video Walkthrough for a quick tour of EMT tasks: 🎥
 https://youtu.be/2QmVPgZzvII
 
 Note: to sign into the app, any email address and any password should do. We do not have backend authentication securely set up.
+
+
+
